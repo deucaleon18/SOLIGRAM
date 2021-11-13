@@ -1,18 +1,22 @@
-import styled from "styled-components"
-export const LoginWrapper=styled.div `
-background-image:url("./assets/1.jpg")
-height:90vh;
-width:100%;
+import styled from "styled-components";
+import img from "../../assets/5.jpg"
+export const LoginWrapper = styled.div`
+  background-image: url(${img});
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height:100%;
+  width: 500px;
+  margin:auto;
+`;
 
-`
-
-export const FormName=styled.h1`
-
-font-size:60px;
-font-weight:800;
-text-align:center;
-margin-top:100px;
-`
+export const FormName = styled.h1`
+  color:white;
+  font-size: 60px;
+  font-weight: 800;
+  text-align: center;
+  margin-top: 100px;
+`;
 export const FormContainer = styled.div`
   background: rgba(255, 255, 255, 0.1);
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);

@@ -28,7 +28,7 @@ const Routing = () => {
 
           <Route
             exact
-            path="/accounts/:username"
+            path="/accounts"
             element={<AccountDetails />}
           ></Route>
           {localStorage.getItem("token") ? (

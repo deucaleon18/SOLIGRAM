@@ -1,11 +1,18 @@
 import styled from "styled-components";
+import img from "../../assets/2.jpg"
 export const RegisterWrapper = styled.div`
+  background-image: url(${img});
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size:cover;
   height: 90%;
-  width: 100%;
-`
+  width: 500px;
+  margin:auto;
+  border-radius:5px;
+`;
 
 export const FormName = styled.h1`
-
+color:white;
 font-size:60px;
 font-weight:800;
 text-align:center;

@@ -80,7 +80,6 @@ const NewPost = () => {
   return (
     <div>
       <NewPostWrapper>
-        <Avatar>H</Avatar>
         <NewPostCreate>
           <AddImage>
             <ImageInput

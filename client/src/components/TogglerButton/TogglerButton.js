@@ -1,5 +1,4 @@
 import React,{useState} from 'react'
-// import Toggler from './TogglerButtonStyle'
 import Switch from "@mui/material/Switch";
 
 const TogglerButton = (props) => {
@@ -11,10 +10,8 @@ const TogglerButton = (props) => {
       themeToggler()
     }
     return (
-        <div>
-        
-        
-        <Switch checked={checked} onChange={handleChange}/>
+        <div >
+        <Switch style={{color:"white"}} checked={checked} onChange={handleChange}/>
         </div>
     )
 }

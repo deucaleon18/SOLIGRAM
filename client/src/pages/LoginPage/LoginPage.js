@@ -6,6 +6,7 @@ import {
   FormUserInput,
   FormPasswordInput,
 } from "./LoginPageStyle";
+
 import { SubmitButton } from "../../components/Button/ButtonStyle";
 import axios from "axios";
 
@@ -52,7 +53,7 @@ const LoginPage = () => {
               setPassword(e.target.value);
             }}
           />
-          <SubmitButton onClick={loginUser}>LOGIN</SubmitButton>
+          <SubmitButton style={{margin:"0 50px"}}onClick={loginUser}>LOGIN</SubmitButton>
         </FormContainer>
       </LoginWrapper>
     </>

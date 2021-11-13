@@ -3,6 +3,9 @@ import useBasicFetch from "../../hooks/useBasicFetch";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import IconButton from "@mui/material/IconButton";
 import Avatar from "@mui/material/Avatar";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import ModeCommentIcon from "@mui/icons-material/ModeComment";
+
 import {
   ApplicationWrapper,
   PostContainer,
@@ -110,28 +113,47 @@ const Application = () => {
 
   return (
     <div>
-      <ApplicationWrapper>
-        <Avatar>H</Avatar>
+      <ApplicationWrapper className="app">
         <PostsWrapper>
           {!loading
             ? posts.map((post) => {
                 return (
                   <PostContainer>
                     <PostHeader>
-                      <h1>{post.name}</h1>
+                      <Avatar
+                        sx={{ width: 24, height: 24 }}
+                        style={{ padding: "10px", backgroundColor: "pink" }}
+                      >
+                        H
+                      </Avatar>
+                      <h3 style={{ padding: "10px" }}>{post.name}</h3>
                     </PostHeader>
                     <PostImageWrapper>
                       <PostImage src={post.url} alt="" />
                     </PostImageWrapper>
-                    <PostCaption>{post.caption}</PostCaption>
+                    <PostCaption>
+                      <h2>{post.caption}</h2>
+                    </PostCaption>
                     <PostFooter>
-                      Like {post.buyingPrice} ETH
+                      <IconButton size="large">
+                        <FavoriteIcon />
+                      </IconButton>
+                      <IconButton size="large">
+                        <ModeCommentIcon />
+                      </IconButton>
+                      <h3>
+                        <b>{post.buyingPrice} ETH</b>
+                      </h3>
                       <IconButton
-                        onClick={()=>buyPost(
-                          post.imageNumber,
-                          post.buyingPrice,
-                          post.userNumber
-                        )}
+                        size="large"
+                        // color="white"
+                        onClick={() =>
+                          buyPost(
+                            post.imageNumber,
+                            post.buyingPrice,
+                            post.userNumber
+                          )
+                        }
                         cursor="pointer"
                       >
                         <MonetizationOnIcon />

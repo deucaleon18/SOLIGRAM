@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import useBasicFetch from "../../hooks/useBasicFetch";
 import Button from "@mui/material/Button";
 import RedeemIcon from "@mui/icons-material/Redeem";
-// import { useParams } from "react-router";
+
 import {
   AccountDetailsWrapper,
   AccountPost,

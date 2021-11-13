@@ -45,15 +45,11 @@ const handleClose = (event, reason) => {
   })
   }
 
-  // useEffect(()=>{
-  //   console.log(name,username,password,process.env.REACT_APP_BACKEND_URL)
-  // },[name,username,password])
-
 
     return (
       <>
         <RegisterWrapper>
-          <FormName>Register</FormName>
+          <FormName >Register</FormName>
           <FormContainer>
             <FormNameInput
               value={name}
@@ -73,7 +69,7 @@ const handleClose = (event, reason) => {
                 setPassword(e.target.value);
               }}
             />
-            <SubmitButton onClick={registerUser}>REGISTER</SubmitButton>
+            <SubmitButton style={{margin:"0 50px"}}onClick={registerUser}>REGISTER</SubmitButton>
           </FormContainer>
           <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
             <Alert

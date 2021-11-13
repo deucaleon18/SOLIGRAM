@@ -8,8 +8,8 @@ width:100%;
 
 export const AccountWrapper=styled.div`
 width:600px;
-
 margin:auto;
+color:white;
 `
 export const AccountProfile=styled.div`
 display:flex;

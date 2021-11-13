@@ -6,7 +6,7 @@ import Footer from "./components/Footer/Footer"
 import GlobalStyle from "./styles/global";
 import {lightTheme,darkTheme,defaultTheme} from "./styles/theme"
 import {devices} from './styles/devices'
-import TogglerButton from "./components/TogglerButton/TogglerButton";
+
 import useDarkTheme from "./hooks/useDarkTheme";
 
 const App = () => {
@@ -16,21 +16,20 @@ const App = () => {
      console.log(selectedTheme)
    })
   return (
-    <>
+    <div className="app">
       <ThemeProvider
         theme={selectedTheme}
         devices={devices}
         defaultTheme={defaultTheme}
       >
         <GlobalStyle />
-        <div className="nav-container">
-          <Navbar />
-          <TogglerButton themeToggler={themeToggler} />
-        </div>
+       
+          <Navbar themeToggler={themeToggler} />
+        
         <Routing />
         <Footer />
       </ThemeProvider>
-    </>
+    </div>
   );
 };
 
