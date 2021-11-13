@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
 import useBasicFetch from "../../hooks/useBasicFetch";
+import Button from "@mui/material/Button";
+import SendIcon from "@mui/icons-material/Send";
+import Avatar from "@mui/material/Avatar";
+
 import {
   AddCaption,
   DisplayImage,
@@ -54,13 +58,13 @@ const NewPost = () => {
             .createNew(
               price,
               caption,
-              localStorage.getItem("username"),
               res.path,
-              account
+              account,
+              localStorage.getItem("username")
             )
             .send({ from: account })
             .then((res) => {
-              window.location.href="/app"
+              window.location.href = "/app";
               console.log(res);
             })
             .catch((err) => {
@@ -76,6 +80,7 @@ const NewPost = () => {
   return (
     <div>
       <NewPostWrapper>
+        <Avatar>H</Avatar>
         <NewPostCreate>
           <AddImage>
             <ImageInput
@@ -108,12 +113,24 @@ const NewPost = () => {
               />
             </CaptionInputContainer>
             <PriceInputContainer>
-              <PriceInput placeholder="PRICE" type="number" value={price} onChange={(e)=>{
-                setPrice(e.target.value)
-              }}/>
+              <PriceInput
+                placeholder="PRICE"
+                type="number"
+                value={price}
+                onChange={(e) => {
+                  setPrice(e.target.value);
+                }}
+              />
             </PriceInputContainer>
             <ButtonContainer>
-              <SubmitButton onClick={createPost}>CREATE</SubmitButton>
+              <Button
+                onClick={createPost}
+                variant="contained"
+                endIcon={<SendIcon />}
+              >
+                POST
+              </Button>
+              {/* <SubmitButton onClick={createPost}>CREATE</SubmitButton> */}
             </ButtonContainer>
           </AddCaption>
         </NewPostCreate>

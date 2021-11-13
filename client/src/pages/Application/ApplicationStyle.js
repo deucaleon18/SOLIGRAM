@@ -37,7 +37,7 @@ width:100%;
 
 export const PostImage=styled.img`
 height:95%;
-max-width:95%;
+width:95%;
 margin:auto;
 `
 export const PostCaption = styled.div`

@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import useBasicFetch from "../../hooks/useBasicFetch";
+import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
+import IconButton from "@mui/material/IconButton";
+import Avatar from "@mui/material/Avatar";
 import {
   ApplicationWrapper,
   PostContainer,
@@ -28,11 +31,12 @@ const Application = () => {
               .then((res) => {
                 var tempPost = posts;
                 tempPost.push({
-                  name: res.name,
+                  name: res.userName,
                   buyingPrice: res.buyingPrice,
                   mainAccount: res.mainAccount,
                   caption: res.caption,
                   imageNumber: res.imageNumber,
+                  userNumber: res.userNumber,
                   url: `https://ipfs.infura.io/ipfs/${res.imageHash}`,
                 });
                 setPosts(tempPost);
@@ -60,10 +64,54 @@ const Application = () => {
       getContractDetails();
     }
   }, [web3, account, contract]);
+ 
+
+
+ const buyPost=async(serial,amount,userSerial)=>{
+   console.log(amount)
+  await contract.methods
+    .buyPost(
+      serial,
+      web3.utils.toWei(amount, "ether"),
+      localStorage.getItem("username"),
+      userSerial,
+      account
+    )
+    .send({ from: account, value: web3.utils.toWei(amount, "ether") })
+    .then(async (res) => {
+      window.location.reload();
+      console.log(res);
+      await contract.methods
+        .images(serial)
+        .call()
+        .then((res) => {
+          var tempPost = posts;
+          tempPost[serial] = {
+            name: res.userName,
+            buyingPrice: res.buyingPrice,
+            mainAccount: res.mainAccount,
+            caption: res.caption,
+            imageNumber: res.imageNumber,
+            userNumber: res.userNumber,
+            url: `https://ipfs.infura.io/ipfs/${res.imageHash}`,
+          };
+          setPosts(tempPost);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+ }
+
+
 
   return (
     <div>
       <ApplicationWrapper>
+        <Avatar>H</Avatar>
         <PostsWrapper>
           {!loading
             ? posts.map((post) => {
@@ -76,7 +124,19 @@ const Application = () => {
                       <PostImage src={post.url} alt="" />
                     </PostImageWrapper>
                     <PostCaption>{post.caption}</PostCaption>
-                    <PostFooter>Like    {post.buyingPrice} ETH</PostFooter>
+                    <PostFooter>
+                      Like {post.buyingPrice} ETH
+                      <IconButton
+                        onClick={()=>buyPost(
+                          post.imageNumber,
+                          post.buyingPrice,
+                          post.userNumber
+                        )}
+                        cursor="pointer"
+                      >
+                        <MonetizationOnIcon />
+                      </IconButton>
+                    </PostFooter>
                   </PostContainer>
                 );
               })

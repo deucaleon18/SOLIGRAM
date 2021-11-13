@@ -1,7 +1,7 @@
 import styled from "styled-components"
 export const LoginWrapper=styled.div `
-
-height:90%;
+background-image:url("./assets/1.jpg")
+height:90vh;
 width:100%;
 
 `
