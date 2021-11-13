@@ -10,19 +10,19 @@ struct Image{
     string name;
     string imageHash;
     string caption;
-    uint totalDonation;
+    uint buyingPrice;
     address payable mainAccount;
 }
 
-mapping(uint=>Image) images;
+mapping(uint=>Image)public images;
 
-function createNew  (string memory _caption,string memory _name,string memory _imageHash,address payable _mainAccount) public payable{
+function createNew  (uint _price,string memory _caption,string memory _name,string memory _imageHash,address payable _mainAccount) public payable{
  imageCount++;
- images[imageCount]=Image(imageCount,_name,_imageHash,_caption,0,_mainAccount);
+ images[imageCount]=Image(imageCount,_name,_imageHash,_caption,_price,_mainAccount);
 } 
 
-function addDonation (uint _imageNumber,uint _donatedAmount) public payable{
- images[_imageNumber].totalDonation+=_donatedAmount;
-}
+// function addDonation (uint _imageNumber,uint _donatedAmount) public payable{
+//  images[_imageNumber].totalDonation+=_donatedAmount;
+// }
 
 }

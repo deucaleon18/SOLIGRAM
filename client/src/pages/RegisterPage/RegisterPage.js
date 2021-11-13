@@ -12,12 +12,19 @@ const RegisterPage = () => {
 
   const registerUser=async(e)=>{
   e.preventDefault()
-  await axios.post(`${process.env.REACT_APP_BACKEND_URL}register`,{
+  await axios.post("http://localhost:5000/register",{
     name,
     username,
     password
   })
+  .then((res)=>{
+    console.log(res)
+  })
+  .catch((err)=>{
+    console.log(err)
+  })
   }
+
   // useEffect(()=>{
   //   console.log(name,username,password,process.env.REACT_APP_BACKEND_URL)
   // },[name,username,password])

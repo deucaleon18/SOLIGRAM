@@ -55,10 +55,24 @@ export const AddCaption=styled.div`
 
 `
 export const CaptionInputContainer = styled.div`
-  height: 400px;
+  height: 300px;
   outline: none;
   width: 100%;
 `;
+export const PriceInputContainer = styled.div`
+  height: 100px;
+  outline: none;
+  width: 100%;
+`;
+
+export const PriceInput = styled.input`
+  cursor: pointer;
+  outline: none;
+  height: 40px;
+  width: 80%;
+  border-radius: 10px;
+`;
+
 export const CaptionInput = styled(TextareaAutosize)`
   outline: none;
   width: 80%;

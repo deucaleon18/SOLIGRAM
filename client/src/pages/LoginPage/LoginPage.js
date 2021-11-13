@@ -16,14 +16,16 @@ const LoginPage = () => {
   const loginUser = async (e) => {
     e.preventDefault();
 
-    await axios.post(`${process.env.REACT_APP_BACKEND_URL}login`, {
+    await axios.post("http://localhost:5000/login", {
       username,
       password
     })
     .then((res)=>{
       console.log(res)
-      // localStorage.setItem("user",res.user)
-      window.location.href="/application"
+      localStorage.setItem("username",res.data.user.username)
+      localStorage.setItem("name",res.data.user.name)
+      localStorage.setItem("token",res.data.token)
+      window.location.href="/app"
     })
     .catch((err)=>{
       console.log(err)
@@ -31,9 +33,6 @@ const LoginPage = () => {
   };
 
 
-useEffect(()=>{
-  console.log(username,password)
-},[username,password])
 
 
   return (

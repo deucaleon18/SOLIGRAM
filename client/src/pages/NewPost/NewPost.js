@@ -10,20 +10,26 @@ import {
   ImageInput,
   NewPostCreate,
   NewPostWrapper,
+  PriceInputContainer,
+  PriceInput
 } from "./NewPostStyle";
 import { SubmitButton } from "../../components/Button/ButtonStyle";
 import { create } from "ipfs-http-client";
+const client = create("https://ipfs.infura.io:5001/api/v0");
 
-const ipfs=create({host:'ipfs.infura.io',port:5001,protocol:'https'})
+// const ipfs=create({host:'ipfs.infura.io',port:5001,protocol:'https'})
 
 const NewPost = () => {
   const [web3, account, contract] = useBasicFetch();
   const [imageUrl, setImageUrl] = useState(undefined);
-  // const [image, setImage] = useState(undefined);
+  const [image, setImage] = useState(undefined);
   const [buffer, setBuffer] = useState();
+  const [caption,setCaption]=useState("");
+  const [price,setPrice]=useState("")
+  const [ipfsHash, setIpfsHash] = useState(undefined);
 
   useEffect(() => {
-  // console.log(ipfs)
+    // console.log(ipfs)
     const getContractDetails = async () => {};
     if (
       typeof contract !== "undefined" &&
@@ -33,20 +39,40 @@ const NewPost = () => {
       getContractDetails();
     }
   }, [web3, account, contract]);
-  
-  const createPost=async()=>{
 
-  console.log("added file to ipfs")
-
-  ipfs.add(buffer,(err,res)=>{
-  
-    if(err){
-      console.log(err)
+  const createPost = async () => {
+    console.log("adding file to ipfs....");
+    try {
+      await client
+        .add(buffer)
+        .then(async(res) => {
+          console.log(res);
+          setIpfsHash(res.path);
+          const url = `https://ipfs.infura.io/ipfs/${res.path}`;
+          console.log(url);
+          await contract.methods
+            .createNew(
+              price,
+              caption,
+              localStorage.getItem("username"),
+              res.path,
+              account
+            )
+            .send({ from: account })
+            .then((res) => {
+              window.location.href="/app"
+              console.log(res);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        })
+        
+    } catch (error) {
+      console.log("Error uploading file: ", error);
     }
-    console.log("ipfs results", res);
-  })
+  };
 
-  }
   return (
     <div>
       <NewPostWrapper>
@@ -62,7 +88,7 @@ const NewPost = () => {
                   setBuffer(Buffer(reader.result));
                   console.log(Buffer(reader.result));
                 };
-                // setImage(e.target.files[0])
+                setImage(e.target.files[0]);
                 setImageUrl(URL.createObjectURL(e.target.files[0]));
               }}
               placeholder="ATTACH IMAGE"
@@ -73,8 +99,19 @@ const NewPost = () => {
           </AddImage>
           <AddCaption>
             <CaptionInputContainer>
-              <CaptionInput placeholder="CAPTION HERE" />
+              <CaptionInput
+                value={caption}
+                onChange={(e) => {
+                  setCaption(e.target.value);
+                }}
+                placeholder="CAPTION HERE"
+              />
             </CaptionInputContainer>
+            <PriceInputContainer>
+              <PriceInput placeholder="PRICE" type="number" value={price} onChange={(e)=>{
+                setPrice(e.target.value)
+              }}/>
+            </PriceInputContainer>
             <ButtonContainer>
               <SubmitButton onClick={createPost}>CREATE</SubmitButton>
             </ButtonContainer>
