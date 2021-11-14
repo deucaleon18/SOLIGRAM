@@ -29,18 +29,12 @@ mapping(uint=>User)public users;
 function createNew  (uint _price,string memory _caption,string memory _imageHash,
 address payable _mainAccount,string memory _userName) public payable{
 
- uint check=0;
- uint _userNumber=0;
- for(uint i=1;i<userCount;i++){
+ uint _userNumber;
+ for(uint i=1;i<=userCount;i++){
      if(keccak256(abi.encodePacked(users[i].userName)) ==keccak256(abi.encodePacked(_userName))){
-       check=1;
+       
        _userNumber=i;
      }
- }
- if(check ==0){
-     userCount++;
-     _userNumber=userCount;
-     users[userCount]=User(0,_userNumber,_userName,_mainAccount);
  }
 
  imageCount++;
@@ -48,26 +42,33 @@ address payable _mainAccount,string memory _userName) public payable{
  
 } 
 
+
+function createNewUser(address payable _mainAccount, string memory _userName)public payable{
+ 
+ userCount++;
+ users[userCount]=User(0,userCount,_userName,_mainAccount);
+
+
+//  uint check=0;
+//  uint _userNumber=0;
+//  for(uint i=1;i<userCount;i++){
+//      if(keccak256(abi.encodePacked(users[i].userName)) ==keccak256(abi.encodePacked(_userName))){
+//        check=1;
+//        _userNumber=i;
+//      }
+//  }
+//  if(check ==0){
+//      userCount++;
+//      _userNumber=userCount;
+     
+//  }
+}
+
+
 function buyPost (uint _imageNumber,uint _buyingPrice,string memory _userName,uint _userNumber,address payable _mainAccount)
  public payable{
  images[_imageNumber].userName=_userName;
  users[_userNumber].balance+=_buyingPrice/1000000000000000000;
-
- uint check=0;
- uint _userNumber=0;
- 
-  for(uint i=1;i<userCount;i++){
-     if(keccak256(abi.encodePacked(users[i].userName)) ==keccak256(abi.encodePacked(_userName))){
-       check=1;
-    //    _userNumber=i;
-     }
- }
- if(check ==0){
-     userCount++;
-     _userNumber=userCount;
-     users[userCount]=User(0,_userNumber,_userName,_mainAccount);
- }
-
 }
 
 

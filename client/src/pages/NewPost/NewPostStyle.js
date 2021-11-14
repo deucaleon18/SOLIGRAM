@@ -1,13 +1,12 @@
 import styled from "styled-components"
-import TextareaAutosize from "@mui/material/TextareaAutosize";
 import { SubmitButton } from "../../components/Button/ButtonStyle";
+import { TextField } from "@mui/material";
 
-export const NewPostWrapper=styled.div`
-
-height:90%;
-width:100%;
-
-`
+export const NewPostWrapper = styled.div`
+  color: white;
+  height: 90%;
+  width: 100%;
+`;
 
 export const NewPostCreate = styled.div`
   &:hover ${SubmitButton} {
@@ -36,11 +35,12 @@ width:50%;
 padding:20px;
 `
 export const ImageInput = styled.input`
-  cursor:pointer;
+  border: none;
+  cursor: pointer;
   outline: none;
   height: 40px;
   width: 80%;
-  border-radius:10px;
+ 
 `;
 
 export const DisplayImage=styled.img`
@@ -65,15 +65,19 @@ export const PriceInputContainer = styled.div`
   width: 100%;
 `;
 
-export const PriceInput = styled.input`
+export const PriceInput = styled(TextField)`
+  background-color: white;
+  color: black;
   cursor: pointer;
   outline: none;
-  height: 40px;
+
   width: 80%;
-  border-radius: 10px;
+
 `;
 
-export const CaptionInput = styled(TextareaAutosize)`
+export const CaptionInput = styled(TextField)`
+background-color:white;
+color:black;
   outline: none;
   width: 80%;
   border-radius: 10px;

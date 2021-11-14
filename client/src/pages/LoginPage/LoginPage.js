@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 import React, { useState, useEffect } from "react";
 import {
   LoginWrapper,
@@ -17,24 +18,23 @@ const LoginPage = () => {
   const loginUser = async (e) => {
     e.preventDefault();
 
-    await axios.post("http://localhost:5000/login", {
-      username,
-      password
-    })
-    .then((res)=>{
-      console.log(res)
-      localStorage.setItem("username",res.data.user.username)
-      localStorage.setItem("name",res.data.user.name)
-      localStorage.setItem("token",res.data.token)
-      window.location.href="/app"
-    })
-    .catch((err)=>{
-      console.log(err)
-    })
+    await axios
+      .post("http://localhost:5000/login", {
+        username,
+        password,
+      })
+      .then((res) => {
+        console.log(res);
+        localStorage.setItem("username", res.data.user.username);
+        localStorage.setItem("name", res.data.user.name);
+        localStorage.setItem("token", res.data.token);
+        window.location.href = "/app";
+      })
+      .catch((err) => {
+        window.location.reload();
+        console.log(err);
+      });
   };
-
-
-
 
   return (
     <>
@@ -53,7 +53,9 @@ const LoginPage = () => {
               setPassword(e.target.value);
             }}
           />
-          <SubmitButton style={{margin:"0 50px"}}onClick={loginUser}>LOGIN</SubmitButton>
+          <SubmitButton style={{ margin: "0 50px" }} onClick={loginUser}>
+            LOGIN
+          </SubmitButton>
         </FormContainer>
       </LoginWrapper>
     </>

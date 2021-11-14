@@ -8,7 +8,7 @@ const LandingPage = () => {
           <LandingTextWrapper>
             <Title>
               The next generation <span color="#f72585">social media</span>{" "}
-              application is here
+              platform is here
             </Title>
             <SubTitle>
               A heaven for content-creators and the devilish meme makers

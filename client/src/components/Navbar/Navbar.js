@@ -1,4 +1,7 @@
-import React from 'react'
+import React from 'react';
+import Avatar from "@mui/material/Avatar";
+
+
 import {
   NavContainer,
   NavLink,
@@ -47,6 +50,7 @@ const Navbar = ({themeToggler}) => {
                       LOGOUT
                     </NavElement>
                   </NavLink>
+                  <Avatar/>
                 </>
               ) : null}
               {localStorage.getItem("token") === null ? (

@@ -66,6 +66,7 @@ const Application = () => {
     ) {
       getContractDetails();
     }
+    // eslint-disable-next-line
   }, [web3, account, contract]);
  
 
@@ -122,7 +123,7 @@ const Application = () => {
                     <PostHeader>
                       <Avatar
                         sx={{ width: 24, height: 24 }}
-                        style={{ padding: "10px", backgroundColor: "pink" }}
+                        style={{ padding: "10px", backgroundColor: "#f72585" }}
                       >
                         H
                       </Avatar>
@@ -135,18 +136,16 @@ const Application = () => {
                       <h2>{post.caption}</h2>
                     </PostCaption>
                     <PostFooter>
-                      <IconButton size="large">
+                      <IconButton size="large" style={{ color: "#f72585" }}>
                         <FavoriteIcon />
                       </IconButton>
-                      <IconButton size="large">
+                      <IconButton size="large" style={{ color: "white" }}>
                         <ModeCommentIcon />
                       </IconButton>
-                      <h3>
-                        <b>{post.buyingPrice} ETH</b>
-                      </h3>
+
                       <IconButton
                         size="large"
-                        // color="white"
+                        style={{ color: "white" }}
                         onClick={() =>
                           buyPost(
                             post.imageNumber,
@@ -158,6 +157,9 @@ const Application = () => {
                       >
                         <MonetizationOnIcon />
                       </IconButton>
+                      <h3>
+                        <b>{post.buyingPrice} ETH</b>
+                      </h3>
                     </PostFooter>
                   </PostContainer>
                 );

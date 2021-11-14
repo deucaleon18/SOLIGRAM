@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import useBasicFetch from "../../hooks/useBasicFetch";
 import Button from "@mui/material/Button";
 import RedeemIcon from "@mui/icons-material/Redeem";
+import { Avatar } from "@mui/material";
+
 
 import {
   AccountDetailsWrapper,
@@ -9,6 +11,7 @@ import {
   AccountPosts,
   AccountProfile,
   AccountWrapper,
+  Heading,
   PostCaption,
   PostImage,
   PostStats,
@@ -31,14 +34,22 @@ const AccountDetails = () => {
               .users(i)
               .call()
               .then((response) => {
+                console.log(response.userName);
                 console.log(
-                  response
+                  response.userName === localStorage.getItem("username")
                 );
+                console.log(response.balance)
+                console.log(response);
                 if (response.userName === localStorage.getItem("username")) {
-                  var tempUser=user;
-                  tempUser.push({balance:response.balance,userName:response.userName,mainAccount:response.mainAccount,userNumber:response.userNumber})
+                  var tempUser = user;
+                  tempUser.push({
+                    balance: response.balance,
+                    userName: response.userName,
+                    mainAccount: response.mainAccount,
+                    userNumber: response.userNumber,
+                  });
                   setUser(tempUser);
-                  console.log(user)
+                  console.log(user);
                 }
               })
               .catch((err) => {
@@ -85,13 +96,14 @@ const AccountDetails = () => {
             });
         })
         .catch((err) => {
+           window.location.reload();
           console.log(err);
         })
-        .finally(()=>{
-          console.log(user)
-          console.log(posts)
-          setLoading(false)
-        })
+        .finally(() => {
+          console.log(user);
+          console.log(posts);
+          setLoading(false);
+        });
     };
 
     if (
@@ -100,7 +112,7 @@ const AccountDetails = () => {
       typeof web3 !== "undefined"
     ) {
       getContractDetails();
-    }
+    } // eslint-disable-next-line
   }, [web3, account, contract]);
   
   const redeemAmount=async()=>{
@@ -111,8 +123,11 @@ const AccountDetails = () => {
  await contract.methods.redeemAmount(web3.utils.toWei(user[0].balance,"ether"),user[0].userNumber)
  .send({from:account})
  .then((res)=>{
-   window.location.reload()
+   
    console.log(res)
+ })
+ .then(()=>{
+   window.location.reload();
  })
  .catch((err)=>{console.log(err)})
   }
@@ -120,18 +135,29 @@ const AccountDetails = () => {
   return (
     <div>
       <AccountDetailsWrapper>
+        <Heading>
+          Account Details
+        </Heading>
         <AccountWrapper>
           <AccountProfile>
             {!loading ? (
               <>
-                <h1>{user[0].userName}</h1>
-                <h1>{user[0].balance} ETH</h1>
-                <Button onClick={redeemAmount} variant="outlined" startIcon={<RedeemIcon />}>
+                <div style={{display:"flex",alignItems:"center"}}>
+                  <Avatar />
+                  <h1>{user[0].userName}</h1>
+                </div>
+                <h1>Balance:{user[0].balance} ETH</h1>
+                <Button
+                  variant="contained"
+                  onClick={redeemAmount}
+                  startIcon={<RedeemIcon />}
+                >
                   REDEEM
                 </Button>
               </>
             ) : null}
           </AccountProfile>
+          <Heading>YOUR POSTS</Heading>
           <AccountPosts>
             {!loading
               ? posts.map((post) => {
@@ -140,7 +166,7 @@ const AccountDetails = () => {
                       <AccountPost>
                         <PostImage alt="" src={post.url}></PostImage>
                         <PostCaption>{post.caption}</PostCaption>
-                        <PostStats>{post.buyingPrice}</PostStats>
+                        <PostStats>{post.buyingPrice} ETH</PostStats>
                       </AccountPost>
                     </>
                   );
